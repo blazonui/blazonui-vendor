@@ -1,0 +1,6 @@
+package-as: BlazonuiVendor
+
+ignore:
+  - .github
+  - LICENSE
+  - README.md

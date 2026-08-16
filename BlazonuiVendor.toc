@@ -1,0 +1,8 @@
+## Interface: 110200
+## Title: BlazonuiVendor
+## Notes: Automatisches Reparieren (optional) und Verkaufen von Ramsch beim Händler
+## Author: BlazonUI
+## Version: 0.1.0
+## SavedVariables: BlazonuiVendorDB
+
+BlazonuiVendor.lua
