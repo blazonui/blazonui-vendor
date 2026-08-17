@@ -15,9 +15,16 @@ local function InitDB()
 	if BlazonuiVendorDB.autoRepair == nil then
 		BlazonuiVendorDB.autoRepair = true
 	end
+	if BlazonuiVendorDB.autoSellJunk == nil then
+		BlazonuiVendorDB.autoSellJunk = true
+	end
 end
 
 local function SellJunk()
+	if not BlazonuiVendorDB.autoSellJunk then
+		return
+	end
+
 	local totalCopper = 0
 	local itemsSold = 0
 
@@ -53,6 +60,7 @@ local function TryAutoRepair()
 	if canRepair and repairCost > 0 then
 		if GetMoney() >= repairCost then
 			RepairAllItems(false)
+			PlaySound(SOUNDKIT.IG_MAINMENU_OPTION_CHECKBOX_ON)
 			Print(("Ausrüstung repariert für %s."):format(GetCoinTextureString(repairCost)))
 		else
 			Print("Nicht genug Gold zum Reparieren.")
@@ -60,11 +68,24 @@ local function TryAutoRepair()
 	end
 end
 
+local function CreateOptions()
+	local category = Settings.RegisterVerticalLayoutCategory("BlazonuiVendor")
+
+	local repairSetting = Settings.RegisterAddOnSetting(category, "BlazonuiVendorAutoRepair", "autoRepair", BlazonuiVendorDB, Settings.VarType.Boolean, "Auto-Reparieren", true)
+	Settings.CreateCheckbox(category, repairSetting, "Repariert deine Ausrüstung automatisch beim Händler (nur mit eigenem Gold, nie über die Gildenbank).")
+
+	local sellSetting = Settings.RegisterAddOnSetting(category, "BlazonuiVendorAutoSellJunk", "autoSellJunk", BlazonuiVendorDB, Settings.VarType.Boolean, "Ramsch automatisch verkaufen", true)
+	Settings.CreateCheckbox(category, sellSetting, "Verkauft graue (minderwertige) Gegenstände automatisch beim Händler.")
+
+	Settings.RegisterAddOnCategory(category)
+end
+
 frame:SetScript("OnEvent", function(self, event, ...)
 	if event == "ADDON_LOADED" then
 		local loadedAddon = ...
 		if loadedAddon == ADDON_NAME then
 			InitDB()
+			CreateOptions()
 		end
 	elseif event == "MERCHANT_SHOW" then
 		TryAutoRepair()
@@ -80,8 +101,11 @@ SlashCmdList["BLAZONUIVENDOR"] = function(msg)
 	if msg == "repair" then
 		BlazonuiVendorDB.autoRepair = not BlazonuiVendorDB.autoRepair
 		Print("Auto-Reparieren ist jetzt " .. (BlazonuiVendorDB.autoRepair and "|cff33ff33aktiviert|r" or "|cffff3333deaktiviert|r") .. ".")
+	elseif msg == "sell" then
+		BlazonuiVendorDB.autoSellJunk = not BlazonuiVendorDB.autoSellJunk
+		Print("Ramsch-Verkauf ist jetzt " .. (BlazonuiVendorDB.autoSellJunk and "|cff33ff33aktiviert|r" or "|cffff3333deaktiviert|r") .. ".")
 	else
-		Print("Verkauft automatisch Ramsch beim Händler. Auto-Reparieren: " .. (BlazonuiVendorDB.autoRepair and "an" or "aus") .. ".")
-		Print("Befehl: /bv repair — Auto-Reparieren an/aus schalten.")
+		Print("Auto-Reparieren: " .. (BlazonuiVendorDB.autoRepair and "an" or "aus") .. ", Ramsch-Verkauf: " .. (BlazonuiVendorDB.autoSellJunk and "an" or "aus") .. ".")
+		Print("Befehle: /bv repair, /bv sell — jeweils an/aus schalten. Oder Einstellungen unter AddOns → BlazonuiVendor.")
 	end
 end
