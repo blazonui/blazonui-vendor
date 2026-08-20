@@ -7,6 +7,8 @@ und verkauft automatisch Ramsch (graue Gegenstände) — beides einzeln an-/absc
 Session-Statistik (repariert/verkauft in Gold). Alternativ per Minimap-Icon (ziehbar) oder
 über `Einstellungen → AddOns → BlazonuiVendor`. Schnell-Befehle: `/bv repair`, `/bv sell`.
 
+![BlazonuiVendor GUI](screenshots/gui.png)
+
 Quellcode ist öffentlich einsehbar — siehe [LICENSE](LICENSE) für Nutzungsbedingungen.
 Bugs/Vorschläge bitte über den [Discord](https://blazonui.de/join) (`/report`, `/suggest`),
 nicht direkt als GitHub-Issue.

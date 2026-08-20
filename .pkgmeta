@@ -4,3 +4,4 @@ ignore:
   - .github
   - LICENSE
   - README.md
+  - screenshots
