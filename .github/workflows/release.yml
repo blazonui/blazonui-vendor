@@ -7,20 +7,8 @@ on:
 
 jobs:
   release:
-    runs-on: ubuntu-latest
-    permissions:
-      contents: write
-    steps:
-      - uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
-          fetch-tags: true
-
-      - name: Package and release
-        uses: BigWigsMods/packager@v2
-        with:
-          args: -p 1656841 -a b6XeOOKp
-        env:
-          CF_API_KEY: ${{ secrets.CF_API_KEY }}
-          WAGO_API_TOKEN: ${{ secrets.WAGO_API_TOKEN }}
-          GITHUB_OAUTH: ${{ secrets.GITHUB_TOKEN }}
+    uses: blazonui/.github/.github/workflows/release-addon.yml@main
+    with:
+      curseforge-id: "1656841"
+      wago-id: "b6XeOOKp"
+    secrets: inherit
