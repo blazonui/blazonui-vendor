@@ -6,10 +6,11 @@ on:
       - "v*"
 
 jobs:
-  minimal-test:
+  release:
     permissions:
       contents: write
-    uses: blazonui/blazonui-workflows/.github/workflows/minimal4.yml@main
+    uses: blazonui/blazonui-workflows/.github/workflows/release-addon.yml@main
     with:
       curseforge-id: "1656841"
       wago-id: "b6XeOOKp"
+    secrets: inherit
