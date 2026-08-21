@@ -11,4 +11,3 @@ jobs:
     with:
       curseforge-id: "1656841"
       wago-id: "b6XeOOKp"
-    secrets: inherit
