@@ -7,7 +7,7 @@ on:
 
 jobs:
   minimal-test:
-    uses: blazonui/blazonui-workflows/.github/workflows/minimal2.yml@main
+    uses: blazonui/blazonui-workflows/.github/workflows/minimal3.yml@main
     with:
       curseforge-id: "1656841"
       wago-id: "b6XeOOKp"
